@@ -14,12 +14,13 @@ print("LOADING TRAINING DATA")
 data = pd.read_csv(training_data_file, header=0)
 print("TRAINING DATA LOADED")
 
-x = data["Pregnancies"].values
-y = data["Outcome"].values
-y[y == 1] = 2
-y[y == 0] = 1
-d = pd.DataFrame(data={"Pregnancies": x, "Diabetes": y})
-print(d)
-
-sns.relplot(data=d)
+print(data)
+columns = ["Glucose", "Outcome"]
+x = pd.DataFrame(data, columns=columns)
+x = x.loc[x["Outcome"]==1]
+print(x)
+x = x.drop(labels="Outcome", axis=1)
+print(x)
+sns.distplot(x)
 plt.show()
+plt.savefig("GlucosePIMADiabetes.png")
